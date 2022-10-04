@@ -12,3 +12,4 @@ $request = new Request($_GET, $_POST);
 
 $controller = new Controller($request);
 $controller->run();
+

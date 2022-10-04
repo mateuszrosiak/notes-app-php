@@ -2,14 +2,16 @@
 
 This is an intermediate-level project for my portfolio. Project is coded in PHP 7.4
 
-**Technologies used**: 
-PHP
+**Technologies used**:  
+PHP  
+MySql
 
 **Tools**:
-Composer
+Composer  
 Docker
 
-**Design pattern**:
+**Design pattern**:  
 MVC
 
-**Total time spent on coding**: 
+**Total time spent on coding**:  
+-edit when finished-
