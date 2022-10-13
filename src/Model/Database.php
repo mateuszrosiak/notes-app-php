@@ -21,11 +21,25 @@ class Database
         $dsn
             = "mysql:host={$config['host']};dbname={$config['dbname']};charset=utf8";
 
-        $this->connection = new PDO(
+        $this->conn = new PDO(
             $dsn, $config['username'], $config['password'],
             [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             ]
         );
+    }
+
+    public function getAttNotes(): array
+    {
+        try {
+            $sql = "SELECT id,title,note,creationDate FROM notes";
+
+            $result = $this->conn->prepare($sql);
+            $result->execute();
+
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
     }
 }

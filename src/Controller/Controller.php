@@ -31,7 +31,11 @@ class Controller
                 $page = 'base';
         }
 
-        $this->view->render($page);
+        $viewParams = [
+            'notes' => $this->database->getAttNotes()
+        ];
+
+        $this->view->render($page, $viewParams);
     }
 
     private function action(){
