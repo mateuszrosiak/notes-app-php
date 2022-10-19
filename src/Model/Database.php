@@ -29,7 +29,7 @@ class Database
         );
     }
 
-    public function getAttNotes(): array
+    public function getAllNotes(): array
     {
         try {
             $sql = "SELECT id,title,note,creationDate FROM notes";
@@ -42,4 +42,22 @@ class Database
             throw new PDOException($e->getMessage());
         }
     }
+
+    public function addNote(array $data): void
+    {
+        $title = $data['title'];
+        $note = $data['note'];
+        $today = date("Y-m-d H:i:s");
+
+        try {
+            $sql = "INSERT INTO notes (title, note, creationDate) VALUES ('$title', '$note', '$today')";
+
+            $result = $this->conn->prepare($sql);
+            $result->execute();
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
+    }
+
+
 }

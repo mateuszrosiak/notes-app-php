@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="/templates/scripts.js"></script>
 </head>
 <body class="bg-gray-100 tracking-wider tracking-normal h-full">
 

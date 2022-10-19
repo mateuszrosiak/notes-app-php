@@ -10,6 +10,7 @@ class View
 
     public function render(string $page, array $params = []) {
 
+        $this->params = $params;
         require_once("./templates/base.php");
         require_once("./templates/$page.php");
     }

@@ -15,18 +15,21 @@ class Request
     /**
      * @return array
      */
-    public function getGet(): array
+    public function getGet(string $name): ?string
     {
-        return $this->get;
+        return $this->get[$name] ?? null;
     }
 
     /**
      * @return array
      */
-    public function getPost(): array
+    public function getPost(string $name): ?string
     {
-        return $this->post;
+        return $this->post[$name] ?? null;
     }
 
+    public function checkIfPost(): bool {
+        return $_SERVER['REQUEST_METHOD'] == 'POST';
+    }
 
 }
