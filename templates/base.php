@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="text/javascript" src="/templates/scripts.js"></script>
+    <script defer type="text/javascript" src="/templates/scripts.js"></script>
 </head>
 <body class="bg-gray-100 tracking-wider tracking-normal h-full">
 
 
 
-<?php require_once("header.php") ?>
+<?php require_once("partials/header.php") ?>
 
 <div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-6">
-<?php require_once("menu.php") ?>
+<?php require_once("partials/menu.php") ?>
 
     <div class="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
 <?php
@@ -26,7 +26,7 @@ if($page === 'base') {
     </div>
 
 </div>
-<?php require_once("footer.php") ?>
+<?php require_once("partials/footer.php") ?>
 
 <script>
     /*Toggle dropdown list*/

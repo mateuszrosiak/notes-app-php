@@ -1,13 +1,19 @@
 <?php
-switch ($params['before']) {
-            case 'noteCreated':
-                echo '<div id="alert" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">';
-                echo '<span class="font-medium">Note has been created!</span>';
-                echo '</div>';
-                break;
-            default:
-                break;
-        }
+use App\View\View;
+
+if (isset($params['before'])) {
+    switch ($params['before']) {
+        case 'noteCreated':
+            View::displayNotification("Note has been created successfully.");
+            break;
+        case 'noteUpdated':
+            View::displayNotification("Note has been updated successfully.");
+            break;
+        default:
+            break;
+    }
+}
+
 ?>
 
 <nav id="header"

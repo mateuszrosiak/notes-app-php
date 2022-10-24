@@ -4,4 +4,3 @@
         alert.style.display = 'none';
     }, 3000);
 })();
-

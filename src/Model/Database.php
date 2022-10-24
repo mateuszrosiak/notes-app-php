@@ -43,6 +43,21 @@ class Database
         }
     }
 
+    public function getSpecificNote(int $id): array  {
+        try {
+            $sql = "SELECT id, title, note FROM notes WHERE id={$id}";
+
+            $result = $this->conn->prepare($sql);
+            $result->execute();
+
+            $note = $result->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
+
+        return $note;
+    }
+
     public function addNote(array $data): void
     {
         $title = $data['title'];
@@ -51,6 +66,20 @@ class Database
 
         try {
             $sql = "INSERT INTO notes (title, note, creationDate) VALUES ('$title', '$note', '$today')";
+
+            $result = $this->conn->prepare($sql);
+            $result->execute();
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
+    }
+
+    public function updateExistingNote(int $noteId, array $data): void {
+        try {
+            $title = $data['title'];
+            $note = $data['note'];
+
+            $sql = "UPDATE notes SET title = '$title', note = '$note' WHERE id={$noteId}";
 
             $result = $this->conn->prepare($sql);
             $result->execute();
