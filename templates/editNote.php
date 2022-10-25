@@ -5,7 +5,8 @@
 </div>
 
 <div class="mt-6">
-    <form action="/?action=editNote&id=<?= $params['id'] ?>" method="POST" name="updateExistingNote"
+    <form action="/?action=editNote&id=<?= $params['id'] ?>" method="POST"
+          name="updateExistingNote"
           class="">
         <div class="grid gap-6 mb-6 md:grid-cols-1">
             <div class="mb-6 w-1/3">
@@ -14,18 +15,18 @@
                     title</label>
                 <input name="title" type="text"
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                       placeholder="<?= htmlentities(
+                       value="<?= htmlentities(
                            $params['title']
                        ) ?>" required>
             </div>
             <div class="mb-6 w-1/2">
                 <label for="note"
                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Note</label>
-                <textarea name="note" placeholder="<?= htmlentities(
-                    $params['note']
-                ) ?>"
+                <textarea name="note" placeholder=""
                           class="h-24 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          required></textarea>
+                          required><?= htmlentities(
+                        $params['note']
+                    ) ?></textarea>
             </div>
         </div>
         <input type="submit" value="Submit"

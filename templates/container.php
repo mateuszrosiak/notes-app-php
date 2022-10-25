@@ -38,11 +38,14 @@
                 <?= htmlentities($note['creationDate']) ?>
             </td>
             <td class="py-4 px-6">
-                <a href="/?action=#">
-                    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                <form method="POST" action="/?action=deleteNote" class="inline-block">
+
+                    <input type="hidden" name="deleteNote" value="<?= $note['id'] ?>">
+                    <button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                         Delete
                     </button>
-                </a>
+                    </form>
+
                 <a href="/?action=editNote&id=<?= $note['id'] ?>">
                     <button id="editButton"
                             class="editBtn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">

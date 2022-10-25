@@ -88,5 +88,16 @@ class Database
         }
     }
 
+    public function deleteNote(int $noteId): void {
+        try {
+            $sql = "DELETE FROM notes WHERE id={$noteId} LIMIT 1";
+
+            $result = $this->conn->prepare($sql);
+            $result->execute();
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+        }
+    }
+
 
 }

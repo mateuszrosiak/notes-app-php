@@ -31,6 +31,9 @@ class Controller
             case 'editNote':
                 $this->editNoteAction();
                 break;
+            case 'deleteNote':
+                $this->deleteNoteAction();
+                break;
             default:
                 $this->showNotesAction();
         }
@@ -39,6 +42,15 @@ class Controller
     private function action()
     {
         return $this->request->getGet('action') ?? [];
+    }
+
+    private function showNotesAction()
+    {
+        $this->view->render('base', [
+            'notes'  => $this->database->getAllNotes(),
+            'before' => $this->request->getGet('before') ?? [],
+            'note'   => $note ?? [],
+        ]);
     }
 
     private function addNoteAction()
@@ -58,15 +70,6 @@ class Controller
         $this->view->render('addNote');
     }
 
-    private function showNotesAction()
-    {
-        $this->view->render('base', [
-            'notes'  => $this->database->getAllNotes(),
-            'before' => $this->request->getGet('before') ?? [],
-            'note'   => $note ?? [],
-        ]);
-    }
-
     private function editNoteAction()
     {
         $note = $this->getNote();
@@ -84,6 +87,24 @@ class Controller
             exit;
         }
         $this->view->render('editNote', $note);
+    }
+
+    private function deleteNoteAction()
+    {
+
+        if ($this->request->checkIfPost()) {
+            $noteId = $this->request->getPost('deleteNote');
+            $this->database->deleteNote((int) $noteId);
+
+            header('Location: /?before=noteDeleted');
+            exit;
+        }
+
+        $this->view->render('base', [
+            'notes'  => $this->database->getAllNotes(),
+            'before' => $this->request->getGet('before') ?? [],
+        ]);
+
     }
 
     private function getNote(): array

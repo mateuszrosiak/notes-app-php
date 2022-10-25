@@ -9,6 +9,9 @@ if (isset($params['before'])) {
         case 'noteUpdated':
             View::displayNotification("Note has been updated successfully.");
             break;
+        case 'noteDeleted':
+            View::displayNotification("Note has been deleted successfully.");
+            break;
         default:
             break;
     }
