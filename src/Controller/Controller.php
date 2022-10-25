@@ -46,10 +46,19 @@ class Controller
 
     private function showNotesAction()
     {
+        $sortBy = $this->request->getGet('sortby') ?? 'creationDate';
+        $sortOrder = $this->request->getGet('sortorder') ?? 'asc';
+
+        $notes = $this->database->getAllNotes($sortBy, $sortOrder);
+
         $this->view->render('base', [
-            'notes'  => $this->database->getAllNotes(),
+            'notes'  => $notes,
             'before' => $this->request->getGet('before') ?? [],
             'note'   => $note ?? [],
+            'sort' => [
+                'by' => $sortBy,
+                'order' => $sortOrder
+            ]
         ]);
     }
 

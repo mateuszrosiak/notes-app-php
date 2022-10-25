@@ -29,10 +29,10 @@ class Database
         );
     }
 
-    public function getAllNotes(): array
+    public function getAllNotes(string $sortBy, string $sortOrder): array
     {
         try {
-            $sql = "SELECT id,title,note,creationDate FROM notes";
+            $sql = "SELECT id,title,note,creationDate FROM notes ORDER BY $sortBy $sortOrder";
 
             $result = $this->conn->prepare($sql);
             $result->execute();

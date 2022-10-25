@@ -4,6 +4,29 @@
     <hr class="border-b border-gray-400">
 </div>
 
+<?php
+$sortBy = $params['sort']['by'];
+$sortOrder = $params['sort']['order'];
+?>
+
+<div class="mt-5">
+    <div>Sortuj po:</div>
+    <form method="GET" action="/">
+        <fieldset id="sortby">
+        <input type="radio" name="sortby" value="title" <?= $sortBy === 'title' ? 'checked' : ''; ?>><span class="pl-2">Tytule</span>
+        <input type="radio" name="sortby" value="creationDate" <?= $sortBy === 'creationDate' ? 'checked' : ''; ?>><span class="pl-2">Dacie</span>
+        </fieldset>
+
+        <fieldset id="sortorder">
+            <input type="radio" name="sortorder" value="asc" <?= $sortOrder === 'asc' ? 'checked' : ''; ?>><span class="pl-2">Rosnąco</span>
+            <input type="radio" name="sortorder" value="desc" <?= $sortOrder === 'desc' ? 'checked' : ''; ?>><span class="pl-1">Malejąco</span>
+        </fieldset>
+
+        <input type="submit" value="Sortuj" class="mt-1 cursor-pointer bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+    </form>
+
+</div>
+
 <div class="mt-6 overflow-x-auto relative">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 
