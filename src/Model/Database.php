@@ -29,11 +29,17 @@ class Database
         );
     }
 
-    public function getAllNotes(string $sortBy, string $sortOrder): array
-    {
+    public function getAllNotes(
+        string $sortBy,
+        string $sortOrder,
+        string $searchPhrase
+    ): array {
         try {
-            $sql = "SELECT id,title,note,creationDate FROM notes ORDER BY $sortBy $sortOrder";
-
+            $sql
+                = "SELECT id,title,note,creationDate FROM notes WHERE (title LIKE '%"
+                  . $searchPhrase . "%') OR (note LIKE '%" . $searchPhrase
+                  . "%')  ORDER BY $sortBy $sortOrder";
+            dump($sql);
             $result = $this->conn->prepare($sql);
             $result->execute();
 
@@ -43,7 +49,8 @@ class Database
         }
     }
 
-    public function getSpecificNote(int $id): array  {
+    public function getSpecificNote(int $id): array
+    {
         try {
             $sql = "SELECT id, title, note FROM notes WHERE id={$id}";
 
@@ -61,11 +68,12 @@ class Database
     public function addNote(array $data): void
     {
         $title = $data['title'];
-        $note = $data['note'];
+        $note  = $data['note'];
         $today = date("Y-m-d H:i:s");
 
         try {
-            $sql = "INSERT INTO notes (title, note, creationDate) VALUES ('$title', '$note', '$today')";
+            $sql
+                = "INSERT INTO notes (title, note, creationDate) VALUES ('$title', '$note', '$today')";
 
             $result = $this->conn->prepare($sql);
             $result->execute();
@@ -74,12 +82,14 @@ class Database
         }
     }
 
-    public function updateExistingNote(int $noteId, array $data): void {
+    public function updateExistingNote(int $noteId, array $data): void
+    {
         try {
             $title = $data['title'];
-            $note = $data['note'];
+            $note  = $data['note'];
 
-            $sql = "UPDATE notes SET title = '$title', note = '$note' WHERE id={$noteId}";
+            $sql
+                = "UPDATE notes SET title = '$title', note = '$note' WHERE id={$noteId}";
 
             $result = $this->conn->prepare($sql);
             $result->execute();
@@ -88,7 +98,8 @@ class Database
         }
     }
 
-    public function deleteNote(int $noteId): void {
+    public function deleteNote(int $noteId): void
+    {
         try {
             $sql = "DELETE FROM notes WHERE id={$noteId} LIMIT 1";
 

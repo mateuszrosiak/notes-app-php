@@ -48,8 +48,9 @@ class Controller
     {
         $sortBy = $this->request->getGet('sortby') ?? 'creationDate';
         $sortOrder = $this->request->getGet('sortorder') ?? 'asc';
+        $searchPhrase = $this->request->getGet('searchPhrase') ?? '';
 
-        $notes = $this->database->getAllNotes($sortBy, $sortOrder);
+        $notes = $this->database->getAllNotes($sortBy, $sortOrder, $searchPhrase);
 
         $this->view->render('base', [
             'notes'  => $notes,
@@ -58,7 +59,8 @@ class Controller
             'sort' => [
                 'by' => $sortBy,
                 'order' => $sortOrder
-            ]
+            ],
+            'searchPhrase' => $searchPhrase
         ]);
     }
 
