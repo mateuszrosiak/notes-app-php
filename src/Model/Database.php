@@ -39,7 +39,6 @@ class Database
                 = "SELECT id,title,note,creationDate FROM notes WHERE (title LIKE '%"
                   . $searchPhrase . "%') OR (note LIKE '%" . $searchPhrase
                   . "%')  ORDER BY $sortBy $sortOrder";
-            dump($sql);
             $result = $this->conn->prepare($sql);
             $result->execute();
 

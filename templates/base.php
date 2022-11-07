@@ -8,11 +8,11 @@
 </head>
 <body class="bg-gray-100 tracking-wider tracking-normal h-full">
 
-
+<div class="flex flex-col min-h-screen">
 
 <?php require_once("partials/header.php") ?>
 
-<div class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-6">
+<div class="container w-full flex flex-wrap mx-auto px-2 py-8 lg:pt-16 mt-6">
 <?php require_once("partials/menu.php") ?>
 
     <div class="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-white border border-gray-400 border-rounded">
@@ -27,6 +27,7 @@ if($page === 'base') {
 
 </div>
 <?php require_once("partials/footer.php") ?>
+</div>
 
 <script>
     /*Toggle dropdown list*/

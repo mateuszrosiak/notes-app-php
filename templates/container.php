@@ -9,7 +9,7 @@ $sortBy = $params['sort']['by'];
 $sortOrder = $params['sort']['order'];
 ?>
 
-<div class="mt-5 flex flex-col justify-center">
+<div class="mt-5 flex flex-col justify-center mb-auto">
     <div>
     <div>Sort by:</div>
     <form method="GET" action="/">
@@ -62,7 +62,8 @@ $sortOrder = $params['sort']['order'];
                 <?= htmlentities($note['title']) ?>
             </th>
             <td class="py-4 px-6">
-                <?= htmlentities($note['note']) ?>
+                <?= htmlentities(strlen($note['note']) > 200 ? substr($note['note'], 0, 200) . "..." : $note['note']); ?>
+
             </td>
             <td class="py-4 px-6">
                 <?= htmlentities($note['creationDate']) ?>
@@ -82,11 +83,17 @@ $sortOrder = $params['sort']['order'];
                         Edit
                     </button>
                 </a>
+
+                <a href="/?action=showNote&id=<?= $note['id'] ?>">
+                    <button id="showNoteButton"
+                            class="editBtn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                        Show
+                    </button>
+                </a>
             </td>
         </tr>
         </tbody>
-        <?
-        endforeach; ?>
+        <?php endforeach; ?>
     </table>
 
 </div>

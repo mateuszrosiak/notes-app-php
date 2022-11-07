@@ -4,67 +4,33 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Model\Database;
-use App\Request\Request;
-use App\View\View;
-
-
-class Controller
+class Controller extends AbstractController
 {
-    public View $view;
-    public Request $request;
-    protected Database $database;
-
-    public function __construct(Request $request)
+    public function showNotesAction()
     {
-        $this->view     = new View();
-        $this->database = new Database(require_once("./src/config/config.php"));
-        $this->request  = $request;
-    }
-
-    public function run()
-    {
-        switch ($this->action()) {
-            case 'addNote':
-                $this->addNoteAction();
-                break;
-            case 'editNote':
-                $this->editNoteAction();
-                break;
-            case 'deleteNote':
-                $this->deleteNoteAction();
-                break;
-            default:
-                $this->showNotesAction();
-        }
-    }
-
-    private function action()
-    {
-        return $this->request->getGet('action') ?? [];
-    }
-
-    private function showNotesAction()
-    {
-        $sortBy = $this->request->getGet('sortby') ?? 'creationDate';
-        $sortOrder = $this->request->getGet('sortorder') ?? 'asc';
+        $sortBy       = $this->request->getGet('sortby') ?? 'creationDate';
+        $sortOrder    = $this->request->getGet('sortorder') ?? 'asc';
         $searchPhrase = $this->request->getGet('searchPhrase') ?? '';
 
-        $notes = $this->database->getAllNotes($sortBy, $sortOrder, $searchPhrase);
+        $notes = $this->database->getAllNotes(
+            $sortBy,
+            $sortOrder,
+            $searchPhrase
+        );
 
         $this->view->render('base', [
-            'notes'  => $notes,
-            'before' => $this->request->getGet('before') ?? [],
-            'note'   => $note ?? [],
-            'sort' => [
-                'by' => $sortBy,
-                'order' => $sortOrder
+            'notes'        => $notes,
+            'before'       => $this->request->getGet('before') ?? [],
+            'note'         => $note ?? [],
+            'sort'         => [
+                'by'    => $sortBy,
+                'order' => $sortOrder,
             ],
-            'searchPhrase' => $searchPhrase
+            'searchPhrase' => $searchPhrase,
         ]);
     }
 
-    private function addNoteAction()
+    public function addNoteAction()
     {
         if ($this->request->checkIfPost()) {
             $data = [
@@ -81,10 +47,8 @@ class Controller
         $this->view->render('addNote');
     }
 
-    private function editNoteAction()
+    public function editNoteAction()
     {
-        $note = $this->getNote();
-
         if ($this->request->checkIfPost()) {
             $data = [
                 'id'    => (int)$this->request->getGet('id'),
@@ -97,15 +61,14 @@ class Controller
             header('Location: /?before=noteUpdated');
             exit;
         }
-        $this->view->render('editNote', $note);
+        $this->view->render('editNote', $this->getNote());
     }
 
-    private function deleteNoteAction()
+    public function deleteNoteAction(): void
     {
-
         if ($this->request->checkIfPost()) {
             $noteId = $this->request->getPost('deleteNote');
-            $this->database->deleteNote((int) $noteId);
+            $this->database->deleteNote((int)$noteId);
 
             header('Location: /?before=noteDeleted');
             exit;
@@ -115,10 +78,14 @@ class Controller
             'notes'  => $this->database->getAllNotes(),
             'before' => $this->request->getGet('before') ?? [],
         ]);
-
     }
 
-    private function getNote(): array
+    public function showNoteAction(): void
+    {
+        $this->view->render('showNote', $this->getNote());
+    }
+
+    public function getNote(): array
     {
         if ($this->request->getGet('id')) {
             $noteId = (int)$this->request->getGet('id');
@@ -128,6 +95,5 @@ class Controller
 
         return [];
     }
-
 
 }
