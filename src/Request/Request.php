@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Request;
 
 class Request
@@ -7,8 +9,9 @@ class Request
     private $get;
     private $post;
 
-    public function __construct(array $get, array $post) {
-        $this->get = $get;
+    public function __construct(array $get, array $post)
+    {
+        $this->get  = $get;
         $this->post = $post;
     }
 
@@ -28,7 +31,8 @@ class Request
         return $this->post[$name] ?? null;
     }
 
-    public function checkIfPost(): bool {
+    public function checkIfPost(): bool
+    {
         return $_SERVER['REQUEST_METHOD'] == 'POST';
     }
 

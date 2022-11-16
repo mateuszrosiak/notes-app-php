@@ -90,7 +90,7 @@ class Controller extends AbstractController
         if ($this->request->getGet('id')) {
             $noteId = (int)$this->request->getGet('id');
 
-            return $note = $this->database->getSpecificNote($noteId);
+            return $this->database->getSpecificNote($noteId);
         };
 
         return [];

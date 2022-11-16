@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -22,28 +23,18 @@ abstract class AbstractController
 
     public function run()
     {
-        switch ($this->action()) {
-            case 'addNote':
-                $this->addNoteAction();
-                break;
-            case 'editNote':
-                $this->editNoteAction();
-                break;
-            case 'deleteNote':
-                $this->deleteNoteAction();
-                break;
-            case 'showNote':
-                $this->showNoteAction();
-                break;
+        $action = $this->action() . 'Action';
 
-            default:
-                $this->showNotesAction();
+        if ( ! method_exists($this, $action)) {
+            $action = 'showNotesAction';
         }
+
+        $this->$action();
     }
 
     protected function action()
     {
-        return $this->request->getGet('action') ?? [];
+        return $this->request->getGet('action') ?? 'showNotes';
     }
 
 }

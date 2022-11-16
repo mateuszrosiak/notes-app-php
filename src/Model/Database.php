@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model;
 
 use PDO;
@@ -36,9 +38,9 @@ class Database
     ): array {
         try {
             $sql
-                = "SELECT id,title,note,creationDate FROM notes WHERE (title LIKE '%"
-                  . $searchPhrase . "%') OR (note LIKE '%" . $searchPhrase
-                  . "%')  ORDER BY $sortBy $sortOrder";
+                    = "SELECT id,title,note,creationDate FROM notes WHERE (title LIKE '%"
+                      . $searchPhrase . "%') OR (note LIKE '%" . $searchPhrase
+                      . "%')  ORDER BY $sortBy $sortOrder";
             $result = $this->conn->prepare($sql);
             $result->execute();
 
