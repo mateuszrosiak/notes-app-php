@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer type="text/javascript" src="/templates/scripts.js"></script>
+    <title>PHP Notes App</title>
 </head>
 <body class="bg-gray-100 tracking-wider tracking-normal h-full">
 
